@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+</head>
+<body>
+  <iframe id="ppt" src="./iframe-ppt.html" width="1200" height="800"frameborder="0"></iframe>
+  <div class="control">
+    <button id="prevSlide">上一页</button>
+    <button id="nextSlide">下一页</button>
+
+    <button id="getIndex">当前页数</button>
+    <button id="getTotalSlides">总页数</button>
+
+    <button id="pause">暂停</button>
+    <button id="resume">播放</button>
+    <button id="backward2">上一帧动画</button>
+
+    <button id="forward2">下一帧动画</button>
+
+    <button id="disableTouch">禁止触屏控制</button>
+    <button id="enableTouch">开启触屏控制</button>
+
+    <button id="snapshot">当前页面信息</button>
+  </div>
+  <div class="showBar">
+    <div class="current">当前页数:<span class="currentPage"></span></div>
+    <div class="total">总共页数:<span class="totalPage"></span></div>
+  </div>
+</body>
+<script src="./control.js"></script>
+</html>

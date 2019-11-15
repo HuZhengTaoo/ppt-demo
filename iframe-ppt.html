@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- width=26.667, height=20 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>22</title>
+    <meta name="description" content="点击查看《22》">
+    
+
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+    <style>
+    #main.protected #logo {
+        top:5%;
+    }
+    #main.protected #banner {
+        top:calc(5% + 70px);
+    }
+    #main.protected #loading-bar{
+        display:none;
+    }
+    #main.protected #protect-hint {
+        display:block;
+    }
+   
+    #protect-hint {
+        position:absolute;
+        width:100%;
+        bottom:0;
+        text-align: center;
+        font-size:16px;
+        display:none;
+    }
+    #protect-hint .protect-content {
+        width: 15em;
+        height:100%;
+        display:inline-block;
+        background:rgb(255,210,0);
+        border-radius: 4px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 2px 0px white,  0px -1px 0px 1px rgba(255,255,255,0.4) inset;
+        padding-bottom:1em;
+        position:relative;
+        border-bottom-right-radius:0;
+        border-bottom-left-radius:0;
+    }
+    .protect-content h3 {
+        /*
+        background: #c167e6;
+        color: white; 
+        */
+        margin: 0;
+        padding: 1.5em 0 0.5em 0;
+        margin-bottom: 1em;
+        box-shadow: 0px 0px 0px 0px white,  0px 1px 0px 0px rgba(255,255,255,0.2) inset;
+        position:relative;
+    }
+    .protect-content h3:after {
+        content: "";
+        width: 1em;
+        height: 1em;
+        background: black;
+        display: block;
+        border-radius: 1em;
+        position: absolute;
+        left: calc(50% - 0.5em);
+        top: -0.7em;  
+        box-shadow: -6em 0px 0px 0px black, -4.5em 0px 0px 0px black, -3em 0px 0px 0px black, -1.5em 0px 0px 0px black,6em 0px 0px 0px black, 4.5em 0px 0px 0px black, 3em 0px 0px 0px black, 1.5em 0px 0px 0px black;
+    }
+    .protect-content img {
+        width:80%;
+        height:80%;
+    }
+    .protect-content input:focus{
+    }
+    .protect-content ::-webkit-input-placeholder { letter-spacing: 0; }
+    .protect-content :-moz-placeholder { letter-spacing: 0; }
+    .protect-content ::-moz-placeholder { letter-spacing: 0; }
+    .protect-content :-ms-input-placeholder { letter-spacing: 0; } 
+    .protect-content input {
+        letter-spacing:0.5em;
+        font-size: 1em;
+        width:8em;
+        height:1em;
+        padding:0.5em 0;
+        border:none;
+        text-align:center;
+        border-radius:0;
+    }
+    .hint-container {
+        position:relative;
+        padding-top:2em;
+        display:none;
+    }
+    .hint-container:after, .hint-container:before {
+        content: "";
+        font-size:1.2em;
+        width: 0.5em;
+        height:1px;
+        position:absolute;
+        top: 1em;
+        left:-0.8em;
+        box-shadow: 1.2em 0, 2.2em 0, 3.2em 0, 4.2em 0, 5.2em 0, 6.2em 0, 7.2em 0, 8.2em 0, 9.2em 0, 10.2em 0, 11.2em 0, 12.2em 0;
+        
+    }
+    .hint-container:after {
+        height:2px;
+        color: #daa539;
+    }
+    .hint-container:before {
+        margin-top:2px;
+        color:white;
+    }
+    .password-container #submit-password{
+        width: 3em;
+        padding:0;
+    }
+    #hint-content {
+        font-size: 0.8em;
+        line-height: 1.5;
+        white-space:pre-wrap;
+    }
+    .load-btn {
+        display: inline-block;
+        padding:0.2em 1.2em;
+        background: #e25050;
+        box-sizing: border-box;
+        line-height: 2em;
+        color: white;
+        cursor:pointer;
+    }
+    #protect-hint.need-pay .password-area{
+        display: none;
+    }
+
+    #protect-hint.need-pay .purchase-area{
+        display: block;
+    }
+    #protect-hint .purchase-area{
+        display:none
+    }
+    #protect-hint .purchase-area #qrpay-area{
+        display:none;
+    }
+    #protect-hint .purchase-area.qrpay #qrpay-area{
+        display:block;
+    }
+    #protect-hint .purchase-area.qrpay #base-area {
+        display:none;
+    }
+
+    .pdf-page {
+        width: 100%;
+        height: 100%;
+    }
+    punctuation:before, punctuation:after {
+        content: " ";
+        font-size:0;
+        line-height:0;
+    }
+    punctuation.end pole {
+        display:inline-block;
+        font-size: 0 !important;
+    }
+    #user-panel #edit-info{
+        border-radius: 12px;
+        display: inline-block;
+        padding: 6px 12px;
+        color:rgba(130,130,130,0.6);
+        text-align: center;
+        position: absolute;
+        bottom: 20px;
+        right:20px;
+        z-index: 10;
+    
+    }
+    #user-panel #edit-info {
+        padding:0;
+    }
+    .bgm-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 200;
+        width: 30px;
+        height: 30px;
+        background-image: url(//h5.ppj.io/common/images/bgm-btn.svg);
+        background-size: contain;
+        background-repeat: no-repeat; 
+    }
+    .bgm-btn.rotate {
+        -webkit-animation: rotating 1.2s linear infinite;
+        animation: rotating 1.2s linear infinite;
+    }
+    @-webkit-keyframes rotating {
+        0% {
+            transform: rotate(0deg)
+        }
+
+        to {
+            transform: rotate(1turn)
+        }
+    }
+
+    @keyframes rotating {
+        0% {
+            transform: rotate(0deg)
+        }
+
+        to {
+            transform: rotate(1turn)
+        }
+    }
+    #user-panel > * {
+        transform:translate3d(0,0,0);
+        -webkit-transform:translate3d(0,0,0);
+    }
+    #user-panel.fullscreen {
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        pointer-events:none;
+        position:absolute;
+        width:100%;
+        height: 100%;
+        top:0;
+        left:0;
+        z-index: 1000;
+    }
+    #user-panel.fullscreen> * {
+        pointer-events: auto;
+    }
+    body.hide-bgm-btn .bgm-btn {
+        display:none !important;
+    }
+    body.hide-page-number  #edit-info {
+        display:none !important;
+    } 
+
+    </style>
+
+    
+
+
+    
+    
+
+    <script>
+    var REM = 12;
+    
+    var PID = 921588
+    
+    </script>
+    <style>
+    html {
+        height:100%;
+        width:100%;
+        font-size:12px;
+        overflow:hidden;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0  auto;
+        padding: 0;
+        width:100%;
+        height:100%;
+        user-select: none;
+        -webkit-user-select: none;
+        position:relative;
+        overflow:hidden;
+    }
+    #main.sized {
+        width: 26.667rem;
+        height: 20rem;
+        position:relative;
+    }
+    #main.protected {
+        height:auto;
+        width: auto;
+        position:static;
+    }
+    #pages.slides-container {
+        width: 26.667rem;
+        height: 20rem;
+    
+    }
+       
+    #main.auto-fill .slides-container {
+        overflow: visible;
+    }
+    .fill-horizontal .pin-top > .pin-container {
+        transform-origin: center bottom !important;
+    }
+    .fill-vertical .pin-right > .pin-container {
+        transform-origin: left center !important;
+    }
+    .fill-horizontal .pin-bottom > .pin-container {
+        transform-origin: center top !important;
+    }
+    .fill-vertical .pin-left > .pin-container {
+        transform-origin: right center !important;
+    }
+    .reveal-slide {
+        font-size: 18px;
+        background: #fff;
+    }
+    .pin-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        top: 0;
+
+        text-align:center;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
+
+    }
+    .hide {
+        display:none;
+    }
+    #loading.fade {
+        opacity: 0;
+    }
+    #loading-bar {
+        position: relative;
+        height: 2px;
+        background: #FFFFFF;
+        width: 20%;
+        margin: 0 auto;
+        top: 45%;
+        border-radius: 1px;
+        overflow: hidden;
+    }
+    #loading-entry {
+        color:white;
+        position: relative;
+        margin: 0 auto;
+        top: 45%;
+        overflow: hidden;
+        width:100%;
+        text-align:center;
+    }
+    #loading-progress{
+        width: 100%;
+        height: 100%;
+        background: #B8CC41;
+        transform-origin: top left;
+        transform: scaleX(0);
+        -webkit-transform: scaleX(0);
+        -webkit-transform-origin: top left;
+        transition: transform 0.5s;
+        -webkit-transition: -webkit-transform 0.5s;
+    }
+    #loading.default-logo #banner,   #loading.default-logo svg#logo{
+        display:block !important;
+    }
+    #logo{
+        position:relative;
+        display: block;
+        margin: 0 auto;
+        top:40%;
+    }
+    #banner {
+        position:absolute;
+        bottom:10%;
+        color:white;
+        width:100%;
+        text-align:center;
+        font-size:14px;
+    }   
+    .rotated {
+        -webkit-transform:rotate(90deg);
+        transform:rotate(90deg);
+    }
+    img#logo{
+        width: auto;
+        max-width: 200px;
+        max-height: 100px;
+    }
+    .video .image-container:after {
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: url('data:image/svg+xml;base64,PHN2ZyB0PSIxNDkzNjI3MjkyMDkwIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ5NzYiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTEyIDEwMjRDMjI5LjIzNTIgMTAyNCAwIDc5NC43NjQ4IDAgNTEyIDAgMjI5LjIzNTIgMjI5LjIzNTIgMCA1MTIgMCA3OTQuNzY0OCAwIDEwMjQgMjI5LjIzNTIgMTAyNCA1MTIgMTAyNCA3OTQuNzY0OCA3OTQuNzY0OCAxMDI0IDUxMiAxMDI0Wk01MTIgMzguNEMyNTAuODU0NCAzOC40IDM4LjQgMjUwLjg1NDQgMzguNCA1MTIgMzguNCA3NzMuMTQ1NiAyNTAuODU0NCA5ODUuNiA1MTIgOTg1LjYgNzczLjE0NTYgOTg1LjYgOTg1LjYgNzczLjE0NTYgOTg1LjYgNTEyIDk4NS42IDI1MC44NTQ0IDc3My4xNDU2IDM4LjQgNTEyIDM4LjRaTTczOC40NTc2IDU0My40NzUyQzczOC40NTc2IDU0My40NzUyIDQyNy43NjMyIDc0OS4xMiA0MjcuNzYzMiA3NDkuMTIgNDAzLjM3OTIgNzY1LjI2MDggMzcxLjIgNzQ3LjM1MzYgMzcxLjIgNzE3LjY0NDggMzcxLjIgNzE3LjY0NDggMzcxLjIgMzA2LjM1NTIgMzcxLjIgMzA2LjM1NTIgMzcxLjIgMjc2LjY0NjQgNDAzLjM3OTIgMjU4LjczOTIgNDI3Ljc2MzIgMjc0Ljg4IDQyNy43NjMyIDI3NC44OCA3MzguNDU3NiA0ODAuNTI0OCA3MzguNDU3NiA0ODAuNTI0OCA3NjAuNzgwOCA0OTUuMjk2IDc2MC43ODA4IDUyOC43MDQgNzM4LjQ1NzYgNTQzLjQ3NTJaIiBwLWlkPSI0OTc3IiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0ic2VsZWN0ZWQiPjwvcGF0aD48L3N2Zz4=') no-repeat rgba(0,0,0,0.3) center center;
+        opacity: 0.7;
+        background-size: 16%;
+    } 
+    video {
+        width:100%;
+        height:100%;
+        position:absolute;
+        object-fit: fill;
+        background:url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5LjgyM3B4IiBoZWlnaHQ9IjQxLjc5NHB4IiB2aWV3Qm94PSIwIDAgNjkuODIzIDQxLjc5NCI+PHRleHQgdHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgMSAxNC42NDcgMjcuNzA2MSkiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9J3doaXRlJz7liqDovb3kuK0uLi48L3RleHQ+PC9zdmc+') no-repeat rgb(0,0,0) center center;
+    }
+
+
+
+
+    #arrow.vertical {
+        top:initial;
+        right:initial;
+        bottom:20px;
+        left: calc(50% - 20px);
+    }
+     #arrow.rotated.vertical{
+        bottom: initial;
+        right: initial;
+        top: calc(50% - 20px);
+        left: 20px;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+    #arrow.horizontal  {
+        bottom: initial;
+        left: initial;
+        top: calc(50% - 20px);
+        right: 20px;
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+
+    }
+    #arrow.rotated.horizontal  {
+        top:initial;
+        right:initial;
+        bottom:20px;
+        left: calc(50% - 20px);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    </style>
+<!-- htmlbuild:scorm -->
+<!-- endbuild -->
+
+    <script>
+        window.doc_info =  window.doc_info || { 
+            title : "22",
+            description : "点击查看《22》",
+            cover: "",
+            logo : "",
+            
+        }
+
+    </script>
+
+    
+    <script>
+ 
+
+        var isMobile = /iPhone|Android/i.test(navigator.userAgent)
+        if (isMobile && doc_info.allow_embed === false && (window.top !== window.self)){
+            try {
+                console.error("hijack detect!")
+                console.error("hijack detect!", window.top.location.href)
+            }catch(e){
+            }
+            window.top.location.href = window.self.location.href
+        }
+        if (window.doc_info["redirect_url"]){
+            location.href = window.doc_info["redirect_url"]
+        }
+        document.title = doc_info.title || document.title || ""
+        document.head && (document.head.querySelector('meta[name=description]').content = doc_info.description || "");
+        var pi = Math.pi = Math.PI
+    </script>
+    <script>
+        var stageWidth = 26.667 * 12;
+        var stageHeight = 20 * 12;
+        var autoPlay = doc_info.auto_play;
+
+        var stretch = doc_info.stretch || "restrict"//"restrict"; //["restrict", "fullscreen"]
+        var originStretch = stretch;
+        if (stretch == 'auto' || stretch == "smart") {
+            stretch = 'restrict';
+        }
+        //var stretch = "restrict"; //["restrict", "fullscreen"]
+        var contentArea = {"x1":0,"y1":3.91,"x2":26.667,"y2":12.123,"width":26.667,"height":8.213}
+        var shareDomains = []; 
+        var shareLink = location.href.replace(location.host, shareDomains[Math.floor(shareDomains.length * Math.random())] || location.host).replace(/#.*$/, '').replace(/password=[^&]*/, '');
+        var wxRequired = false;
+
+        if (doc_info.auth_type){
+            stretch = "restrict";
+        }
+        if (doc_info.forbid_share){
+            if (location.href.indexOf("from=") > 0 || location.href.indexOf("#share") > 0 ){
+                shareLink = "//v5.ppj.io/401.html?" + (new Date().getTime());
+            } else {
+                shareLink = shareLink + "#share"
+            }
+        }
+        window.FEATURES = { lazyPlay: true }
+        var CDN = "."
+        var commonCDN = "."
+        var BACKEND = "//ppj.io"
+        var UID = "Fn9F1q97" || (function(){
+            var parts = window.location.href.replace(/\?.*$/, '').split("/");
+            parts.pop();
+            return parts.pop();
+        }());
+        var backend = BACKEND + "/lectures/" + UID + "/action_record"
+    </script>
+    <script>
+    var backend = "./data"
+    </script>
+    
+<script>
+var backend = "./data"
+</script>
+
+       <script>
+
+            window.needRotate = false;
+            // var screenWidth = document.documentElement.clientWidth; var screenHeight = document.documentElement.clientHeight;
+            var screenWidth = document.documentElement.clientWidth;
+            var screenHeight = document.documentElement.clientHeight;
+            var scaleR = 1;
+            window.isDesktop = false;
+            var offsetRatio = 1.0;
+            var html = document.documentElement;
+            var html_font_size = parseFloat(window.getComputedStyle(html, null).getPropertyValue('font-size'));
+            var autoFill
+            html.style.fontSize = '20px' 
+            offsetRatio = 20 / parseFloat(window.getComputedStyle(html, null).getPropertyValue('font-size'));
+            //var main = document.getElementById("main");
+            function calculate(setREM) {
+                var screenR = screenHeight / screenWidth;
+                var stageR = stageHeight / stageWidth;
+                var REM = 12;
+                var FONTRatio = REM / 320;
+                var main_transforms = [];
+
+                window.needRotate = (screenR - 1) * (stageR - 1) < 0;
+                var dreamWidth = screenWidth;
+                var maxWidth = dreamWidth;
+                var maxHeight;
+                var direction;
+
+                if (stretch == "auto"){
+                    // 如果是竖版，长度超出屏幕
+                    if (!window.needRotate && stageR >= screenR && screenR >1){
+                        stretch = "fullscreen"
+                    } else {
+                        stretch = "restrict"
+                    }
+                    
+                    if (contentArea){
+                        var w = stageWidth / 12;
+                        var h = stageHeight / 12;
+
+                        var r = screenR > 1 ? 1 / screenR : screenR;
+                        if (stageR < r){
+                            r = 1 / r;
+                            var R = 1 / stageR;
+                            var gap = (r - stageR) / 2 * h;
+                            if (gap > contentArea.x1 || gap > (w - contentArea.x2)){
+                                stretch = "restrict";
+                            }
+                        } else {
+                            //r = 1 / r;
+                            var R = stageR;
+                            var gap = (R - r) / 2 * w;
+                            if (gap > contentArea.y1 || gap > (h - contentArea.y2)){
+                                stretch = "restrict";
+                            }
+                        }
+                    }
+                }
+
+                if (!window.needRotate) {
+                    //先设置rem达到放大的效果,再居中
+                    if (stretch != 'restrict') {
+                        dreamWidth = Math.max(screenWidth, screenHeight / stageR);
+                        maxWidth = dreamWidth;
+                        //横轴居中
+                        main_transforms.push("translateX(-" + (dreamWidth - screenWidth) / 2 + "px)");
+                        scaleR = screenWidth / dreamWidth;
+                    } else {
+                        dreamWidth = Math.min(screenWidth, screenHeight / stageR);
+                        maxWidth =  Math.max(screenWidth, screenHeight / stageR);
+
+                        //屏幕居中
+                        main_transforms.push("translate(" + (screenWidth - dreamWidth) / 2 + "px, " + (screenHeight - dreamWidth * stageR) / 2 + "px)");
+
+                       
+                    }
+                    maxHeight = maxWidth * screenR;
+
+                } else {
+                    if (stretch != 'restrict') {
+                        dreamWidth = Math.max(screenHeight, screenWidth / stageR);
+                        maxWidth = dreamWidth;
+                    } else {
+                        dreamWidth = Math.min(screenHeight, screenWidth / stageR);
+                        maxWidth = Math.max(screenHeight, screenWidth / stageR);
+                    }
+                    maxHeight = maxWidth / screenR;
+                    //rotate: 横屏竖图 or 横图竖屏
+                    if (screenR > stageR) {
+                        //居中 main_transforms.push("translate(" + dreamWidth / 2 * (stageR - 1) + "px, " + (screenHeight / 2 - dreamWidth * stageR / 2) + "px)");
+                        if (stretch == 'restrict'){
+                            main_transforms.push("translate(" + (screenWidth - dreamWidth) / 2 + "px, " + (screenHeight - dreamWidth * stageR) / 2 + "px)");
+                        }else {
+                            main_transforms.push("translate(" + (screenWidth - dreamWidth) / 2 + "px, " + dreamWidth / 2 * (1 - stageR) + "px)");
+                            scaleR = Math.min(screenHeight, screenWidth / stageR) / dreamWidth
+                        }
+                        //旋转
+                        main_transforms.push("rotate(90deg)");
+                    } else {
+                        if (stretch == 'restrict'){
+                            main_transforms.push("translate(" + (screenWidth - dreamWidth) / 2 + "px," + (screenHeight - dreamWidth * stageR) / 2 + "px)");
+                        } else {
+                            //居中
+                            main_transforms.push("translate(" + dreamWidth / 2 * (stageR - 1) + "px," + (screenHeight / 2 - dreamWidth * stageR / 2) + "px)");
+                            scaleR = Math.min(screenHeight, screenWidth / stageR) / dreamWidth
+                        }
+                        //旋转
+                        main_transforms.push("rotate(-90deg)");
+                    }
+                }
+                if (originStretch == "smart") {
+                    if ( (!window.needRotate ? screenWidth : screenHeight )> dreamWidth) {
+                        autoFill = "horizontal"
+                    } else {
+                        autoFill = "vertical"
+                    }
+                }
+               
+                // desktop
+                if (screenR < 1 && screenWidth > 800 && !navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i)) {
+                    window.isDesktop = true;
+                    autoFill = null;
+                    if (window.needRotate){
+                        dreamWidth = screenHeight / stageR;
+                        main_transforms.length = 0;
+                        scaleR = 1;
+                        window.needRotate = false;
+                    }
+                }
+           
+                  //根据DreamWidth设置rem
+                if (setREM) {
+                   // var center = Math.min(maxWidth, maxWidth * stageR) / 2;
+                   var center = Math.min(screenWidth, screenHeight) / 2;
+  
+                    var fontEl = document.createElement('style');
+                    document.documentElement.firstElementChild.appendChild(fontEl);
+                    window.REM = dreamWidth * FONTRatio;
+
+                    fontEl.innerHTML = 'html{font-size:' + window.REM * offsetRatio + 'px!important;}\n'
+                        + '#main.auto-fill .pin > .pin-container { transform:scale(' + maxWidth / dreamWidth + ');}'
+                        + "#main.auto-fill { width:" + (window.needRotate ? screenHeight : screenWidth) + "px; height:" +  (!window.needRotate ? screenHeight : screenWidth)  + "px; " + "transform-origin:" + center +"px " + center + "px; }"
+                        + ".fill-horizontal #pages.slides-container { left: " + Math.max(0, (maxWidth - dreamWidth) /2)  + "px; }"
+                        + ".fill-vertical #pages.slides-container { top: " +  Math.max(0,(maxWidth * stageR - dreamWidth * stageR) / 2)  + "px;}"
+                   
+                }
+                if (autoFill) {
+                    main_transforms = main_transforms.filter(function(i){ return /rotate/.test(i) }); 
+                }
+                return main_transforms;
+            }
+            function transformMain(mainTrans) {
+                var main = document.getElementById('main')//document.getElementById("pages");
+                if (mainTrans.length > 0) {
+                    main.style.webkitTransform = main.style.transform = mainTrans.join(" ");
+                } 
+                if (window.isDesktop) {
+                    main.style.webkitTransform = main.style.transform="none"
+                    main.style.margin = "0 auto"
+                }
+                if (autoFill) {
+                    main.className += main.className + " auto-fill" + " fill-" + autoFill
+                }
+            }
+            var mainTrans = calculate(true);
+
+            window.initialPageCorrect = !window.needRotate;
+
+            window.templatePartials = [];
+
+        </script>
+</head>
+<body>
+    
+    <div id='main'>
+    <div id='loading'>
+        <img id="logo" width="80" style="top:calc(40% - 1em)">
+        <div id='banner' style='display:none;'>ppj.io  一键把PPT发布为H5</div>
+        <svg id='logo' style='display:none;' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="60.699px" height="50px" 
+            viewBox="367.052 205.153 300.699 133.33" xml:space="preserve">
+            <symbol  id="p" viewBox="-48.947 -65.482 97.895 130.964">
+            <path d="M-44.446-60.982c0,0.119,0,77.756,0.001,77.875c0.192,24.383,20.017,44.089,44.446,44.089c24.547,0,44.447-19.898,44.447-44.447c0-24.548-19.899-44.446-44.447-44.446S-44.447-8.014-44.447,16.535"/>
+            </symbol>
+            <g fill="none" stroke="white" stroke-width="9" stroke-linecap="round">
+            <use xlink:href="#p"  width="97.895" height="130.964" x="-48.947" y="-65.482" transform="matrix(1 0 0 -1 415.9993 273)" overflow="visible"/>
+            <use xlink:href="#p"  width="97.895" height="130.964" x="-48.947" y="-65.482" transform="matrix(1 0 0 -1 513.9993 273)" overflow="visible"/>
+            <path d="M562.875,271.659
+            c0-45.445,54-80.659,100.375-51.159"/>
+            <path d="M663.25,323.954c-47.5,27.546-100.375-6.357-100.375-52.295"/>
+            <path d="M597.5,303v-58.5c0,0,0-22,51-9.25 M598,266.5h63M637.5,268v52"/>
+            <g stroke-width="4">
+            <path d="M600,279.75c0-6.188,2.625-10.73,9.688-10.73"/>
+            <path d="M640,279.75c0-6.188,2.625-10.73,9.688-10.73"/>
+            <path d="M600,249.392c-0.396,7.554,0.312,14.17,12.562,14.67"/>
+            </g>
+            <path d="M455.4,235.875c4.476,8.375,9.601,31.958,25.726,50.5"/>
+            </g>
+            <g fill="none" stroke="black" stroke-width="6">
+            <path d="M482.125,275c-10.25-14.5-15.398-31.581-19-41"/>
+            <path stroke-linecap="square" d="M558.447,284.12c6.679-15.147,17.083-34.728,17.929-36.245"/>
+            </g>
+        </svg>
+        <div id='loading-bar'>
+            <div id='loading-progress'></div>
+        </div>
+        <div id='protect-hint'>
+            <div class='protect-content'>
+                <div class="password-area">
+                    <h3 lazy="继续观看需要密码">页面受密码保护</h3>
+                    <div class='password-container'>
+                        <input id='protect-password' type='password' placeholder="请输入访问密码"><span id='submit-password' class="load-btn" href="">确定</span>
+                    </div>
+                </div>
+                <div class="purchase-area">
+                    <h3 lazy="继续观看需付费">内容需要付费观看</h3>
+                    <div id='base-area'>
+                        <span id='purchase-btn' class="load-btn" href="">打赏 <span id="purchase-price">5</span> 元</span>
+                    </div>
+                    <div id='qrpay-area'>
+                        <h5>微信扫一扫完成支付</h5>
+                        <img id='qrpay-qrcode' width="192" height="192" >
+                    </div>
+                </div>
+                <div id='hint-container' class='hint-container'>
+                    <pre id='hint-content'>长按扫描二维码
+回复"PPT"获取访问密码</pre>
+                    <img id='wechat-qrcode' width="192" height="192" style='display:none' >
+                </div>
+            </div>
+        </div>
+
+        <div id="loading-entry" class="hide">点击屏幕继续加载</div>
+    </div>
+    <div class="reveal slides-container hide" id='pages'>
+        <div id='slides' class="slides slides-wrapper">
+            <!-- htmltobuild:template templates/template.html -->
+            
+            <section class="reveal-slide" id='slide-0'>
+                <script type='template'>
+                    <div class='sm1 undefined' style="width:26.667rem;height:20rem">
+<style>
+        [click-command^=open] {
+            color: rgb(0, 0, 255) !important;
+        }
+        </style>
+        
+<div id="bg" class="bg df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:20rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-bg" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:20rem;left:0rem;top:0rem">
+<img id="ni0" src="./images/0.png?1573457716088" style="transform-origin:center center;-webkit-transform-origin:center center">
+</div>
+</div>
+</div>
+</div>
+<div id="2" class="df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:8.213rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,3.91rem,0);-webkit-transform:translate3d(0rem,3.91rem,0)">
+<div class='pin-container' id="pc-2" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:8.213rem;left:0rem;top:0rem">
+<div id='t1' class='text-box' style='width:26.685rem;height:8.231rem;box-sizing:border-box;top:0rem;left:0rem'>
+<ol start="0">
+<li id="p10" class='l1' >
+<span style='-webkit-filter:none;font-weight:bold;text-transform:none;font-variant:normal;letter-spacing:0rem;font-size:2.667rem;font-family:"字心坊萌新体","Arial", Heiti, STHeiTi, sans-serif;color:rgb(192, 0, 0);-webkit-text-stroke:rgb(255, 255, 255) 0.065rem;' >2</span><span style='font-weight:bold;font-size:2.667rem;font-family:"字心坊萌新体","Arial", Heiti, STHeiTi, sans-serif;color:rgb(192, 0, 0);-webkit-text-stroke:rgb(255, 255, 255) 0.065rem;' ><punctuation class='end'><pole> </pole><character>.</character></punctuation></span><span style='-webkit-filter:none;font-weight:bold;text-transform:none;font-variant:normal;letter-spacing:0rem;font-size:2.667rem;font-family:"字心坊萌新体","Arial", Heiti, STHeiTi, sans-serif;color:rgb(192, 0, 0);-webkit-text-stroke:rgb(255, 255, 255) 0.065rem;' >行棋手法</span>
+</li>
+</ol>
+<ol start="0">
+<li id="p11" class='l1' >
+<span style='-webkit-filter:none;font-weight:bold;text-transform:none;font-variant:normal;letter-spacing:0rem;font-size:3.889rem;font-family:"字心坊萌新体","Arial", Heiti, STHeiTi, sans-serif;color:rgb(192, 0, 0);-webkit-text-stroke:rgb(255, 255, 255) 0.065rem;' >拒绝排排坐</span>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg>
+  <defs>
+
+                <pattern id="175" x="0" y="0" width="914.4" height="685.8" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" >
+                    <image xlink:href="./images/image1_1832704.jpg" x="0" y="0" width="914.4" height="685.8" preserveAspectRatio="none" xmlns:xlink="http://www.w3.org/1999/xlink"></image>
+                </pattern>
+            
+  </defs>
+</svg>
+                </script>
+            </section>
+            
+            <section class="reveal-slide" id='slide-1'>
+                <script type='template'>
+                    <div class='sm1 undefined' style="width:26.667rem;height:20rem">
+<style>
+        [click-command^=open] {
+            color: rgb(0, 0, 255) !important;
+        }
+        </style>
+        
+<div id="bg" class="bg df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:20rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-bg" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:20rem;left:0rem;top:0rem">
+<img id="ni1" src="./images/1.png?1573457716088" style="transform-origin:center center;-webkit-transform-origin:center center">
+</div>
+</div>
+</div>
+</div>
+<div id="2051" class="df" style="position:absolute;top:0rem;left:0rem;min-width:4.903rem;min-height:5.816rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(1.188rem,9.477rem,0);-webkit-transform:translate3d(1.188rem,9.477rem,0)">
+<div class='pin-container' id="pc-2051" style="">
+<div class='cc'>
+<div class='render-container' style="width:4.903rem;height:5.816rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image3_54906.png" style="width:4.903rem;height:5.816rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="2050" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.045rem;min-height:5.984rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(19.287rem,8.224rem,0);-webkit-transform:translate3d(19.287rem,8.224rem,0)">
+<div class='pin-container' id="pc-2050" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.045rem;height:5.984rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image4_59681.png" style="width:5.045rem;height:5.984rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="10" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.394rem;min-height:6.398rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0.085rem,13.932rem,0);-webkit-transform:translate3d(0.085rem,13.932rem,0)">
+<div class='pin-container' id="pc-10" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.394rem;height:6.398rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image5_65882.png" style="width:5.394rem;height:6.398rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="11" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.045rem;min-height:5.984rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(6.149rem,9.477rem,0);-webkit-transform:translate3d(6.149rem,9.477rem,0)">
+<div class='pin-container' id="pc-11" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.045rem;height:5.984rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image6_59633.png" style="width:5.045rem;height:5.984rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="12" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.31rem;min-height:6.299rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(6.233rem,13.981rem,0);-webkit-transform:translate3d(6.233rem,13.981rem,0)">
+<div class='pin-container' id="pc-12" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.31rem;height:6.299rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image7_64406.png" style="width:5.31rem;height:6.299rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="8" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.394rem;min-height:6.398rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(19.834rem,10.284rem,0);-webkit-transform:translate3d(19.834rem,10.284rem,0)">
+<div class='pin-container' id="pc-8" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.394rem;height:6.398rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image8_65843.png" style="width:5.394rem;height:6.398rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="2" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.919rem;min-height:4.492rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(10.008rem,6.869rem,0);-webkit-transform:translate3d(10.008rem,6.869rem,0)">
+<div class='pin-container' id="pc-2" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.919rem;height:4.492rem;left:0rem;top:0rem;transform:translate(-0rem, -0rem) rotate(326.88873333333333deg) translate(0rem, 0rem);-webkit-transform:translate(-0rem, -0rem) rotate(326.88873333333333deg) translate(0rem, 0rem)">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image9_6051.png" style="width:1.919rem;height:4.492rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="15" class="df" style="position:absolute;top:0rem;left:0rem;min-width:4.164rem;min-height:4.124rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(13.291rem,8.224rem,0);-webkit-transform:translate3d(13.291rem,8.224rem,0)">
+<div class='pin-container' id="pc-15" style="">
+<div class='cc'>
+<div class='render-container' style="width:4.164rem;height:4.124rem;left:0rem;top:0rem;transform:translate(-0rem, -0rem) rotate(9.859666666666667deg) translate(0rem, 0rem);-webkit-transform:translate(-0rem, -0rem) rotate(9.859666666666667deg) translate(0rem, 0rem)">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image10_10036.png" style="width:4.164rem;height:4.124rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="13" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.133rem;min-height:6.089rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(20.531rem,12.182rem,0);-webkit-transform:translate3d(20.531rem,12.182rem,0)">
+<div class='pin-container' id="pc-13" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.133rem;height:6.089rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image11_61334.png" style="width:5.133rem;height:6.089rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="7" class="df" style="position:absolute;top:0rem;left:0rem;min-width:5.31rem;min-height:6.299rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(20.619rem,14.2rem,0);-webkit-transform:translate3d(20.619rem,14.2rem,0)">
+<div class='pin-container' id="pc-7" style="">
+<div class='cc'>
+<div class='render-container' style="width:5.31rem;height:6.299rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image12_64694.png" style="width:5.31rem;height:6.299rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="2054" class="df" style="position:absolute;top:0rem;left:0rem;min-width:16.989rem;min-height:16.989rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(5.374rem,5.134rem,0);-webkit-transform:translate3d(5.374rem,5.134rem,0)">
+<div class='pin-container' id="pc-2054" style="">
+<div class='cc'>
+<div class='render-container' style="width:16.989rem;height:16.989rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image13_205318.png" style="width:16.989rem;height:16.989rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg>
+  <defs>
+
+                <pattern id="350" x="0" y="0" width="914.4" height="685.8" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" >
+                    <image xlink:href="./images/image2_330255.jpg" x="0" y="0" width="914.4" height="685.8" preserveAspectRatio="none" xmlns:xlink="http://www.w3.org/1999/xlink"></image>
+                </pattern>
+            
+  </defs>
+</svg>
+                </script>
+            </section>
+            
+            <section class="reveal-slide" id='slide-2'>
+                <script type='template'>
+                    <div class='sm1 undefined' style="width:26.667rem;height:20rem">
+<style>
+        [click-command^=open] {
+            color: rgb(0, 0, 255) !important;
+        }
+        </style>
+        
+<div id="mbg" class="bg df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:20rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-mbg" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:20rem;left:0rem;top:0rem">
+<svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 914.4 685.8" style="width:26.667rem;height:20rem;left:0;top:0;transform-origin:center center;-webkit-transform-origin:center center;position:absolute!important" overflow="visible"><path d="M0 0h914.4v685.8H0z" fill="#FFF" fill-rule="evenodd"/></svg>
+</div>
+</div>
+</div>
+</div>
+<div id="2" class="df" style="position:absolute;top:0rem;left:0rem;min-width:40.043rem;min-height:30.026rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(-9.031rem,-2.308rem,0);-webkit-transform:translate3d(-9.031rem,-2.308rem,0)">
+<div class='pin-container' id="pc-2" style="">
+<div class='cc'>
+<div class='render-container' style="width:40.043rem;height:30.026rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image14_358692.jpg" style="width:40.043rem;height:30.026rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="10" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.796rem;min-height:1.785rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.373rem,3.583rem,0);-webkit-transform:translate3d(17.373rem,3.583rem,0)">
+<div class='pin-container' id="pc-10" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.796rem;height:1.785rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image15_12339.png" style="width:1.796rem;height:1.785rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="5" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.796rem;min-height:1.785rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.67rem,6.189rem,0);-webkit-transform:translate3d(18.67rem,6.189rem,0)">
+<div class='pin-container' id="pc-5" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.796rem;height:1.785rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image15_12339.png" style="width:1.796rem;height:1.785rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="3" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.363rem;min-height:1.354rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.347rem,3.069rem,0);-webkit-transform:translate3d(18.347rem,3.069rem,0)">
+<div class='pin-container' id="pc-3" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.363rem;height:1.354rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image16_2535.png" style="width:1.363rem;height:1.354rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="1026" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.796rem;min-height:1.785rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.41rem,6.189rem,0);-webkit-transform:translate3d(17.41rem,6.189rem,0)">
+<div class='pin-container' id="pc-1026" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.796rem;height:1.785rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image15_12339.png" style="width:1.796rem;height:1.785rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="9" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.746rem;min-height:1.732rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.32rem,4.886rem,0);-webkit-transform:translate3d(17.32rem,4.886rem,0)">
+<div class='pin-container' id="pc-9" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.746rem;height:1.732rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image17_9153.png" style="width:1.746rem;height:1.732rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="13" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.746rem;min-height:1.732rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.727rem,4.886rem,0);-webkit-transform:translate3d(18.727rem,4.886rem,0)">
+<div class='pin-container' id="pc-13" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.746rem;height:1.732rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image17_9153.png" style="width:1.746rem;height:1.732rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg>
+  <defs>
+  </defs>
+</svg>
+                </script>
+            </section>
+            
+            <section class="reveal-slide" id='slide-3'>
+                <script type='template'>
+                    <div class='sm1 undefined' style="width:26.667rem;height:20rem">
+<style>
+        [click-command^=open] {
+            color: rgb(0, 0, 255) !important;
+        }
+        </style>
+        
+<div id="mbg" class="bg df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:20rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-mbg" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:20rem;left:0rem;top:0rem">
+<svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 914.4 685.8" style="width:26.667rem;height:20rem;left:0;top:0;transform-origin:center center;-webkit-transform-origin:center center;position:absolute!important" overflow="visible"><path d="M0 0h914.4v685.8H0z" fill="#FFF" fill-rule="evenodd"/></svg>
+</div>
+</div>
+</div>
+</div>
+<div id="15" class="df" style="position:absolute;top:0rem;left:0rem;min-width:40.043rem;min-height:30.026rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(-9.031rem,-2.278rem,0);-webkit-transform:translate3d(-9.031rem,-2.278rem,0)">
+<div class='pin-container' id="pc-15" style="">
+<div class='cc'>
+<div class='render-container' style="width:40.043rem;height:30.026rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image14_358692.jpg" style="width:40.043rem;height:30.026rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="3" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.585rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.479rem,3.757rem,0);-webkit-transform:translate3d(17.479rem,3.757rem,0)">
+<div class='pin-container' id="pc-3" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.585rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image18_10168.png" style="width:1.585rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="77" class="df" style="position:absolute;top:0rem;left:0rem;min-width:0.848rem;min-height:0.84rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.455rem,4.372rem,0);-webkit-transform:translate3d(18.455rem,4.372rem,0)">
+<div class='pin-container' id="pc-77" style="">
+<div class='cc'>
+<div class='render-container' style="width:0.848rem;height:0.84rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image19_2177.png" style="width:0.848rem;height:0.84rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="28" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.585rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.469rem,2.478rem,0);-webkit-transform:translate3d(17.469rem,2.478rem,0)">
+<div class='pin-container' id="pc-28" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.585rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image18_10168.png" style="width:1.585rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="4" class="df" style="position:absolute;top:0rem;left:0rem;min-width:0.848rem;min-height:0.84rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.457rem,3.091rem,0);-webkit-transform:translate3d(18.457rem,3.091rem,0)">
+<div class='pin-container' id="pc-4" style="">
+<div class='cc'>
+<div class='render-container' style="width:0.848rem;height:0.84rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image19_2177.png" style="width:0.848rem;height:0.84rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="1026" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.519rem;min-height:1.51rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(16.258rem,2.535rem,0);-webkit-transform:translate3d(16.258rem,2.535rem,0)">
+<div class='pin-container' id="pc-1026" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.519rem;height:1.51rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image20_8715.png" style="width:1.519rem;height:1.51rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg>
+  <defs>
+  </defs>
+</svg>
+                </script>
+            </section>
+            
+            <section class="reveal-slide" id='slide-4'>
+                <script type='template'>
+                    <div class='sm1 undefined' style="width:26.667rem;height:20rem">
+<style>
+        [click-command^=open] {
+            color: rgb(0, 0, 255) !important;
+        }
+        </style>
+        
+<div id="mbg" class="bg df" style="position:absolute;top:0rem;left:0rem;min-width:26.667rem;min-height:20rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-mbg" style="">
+<div class='cc'>
+<div class='render-container' style="width:26.667rem;height:20rem;left:0rem;top:0rem">
+<svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 914.4 685.8" style="width:26.667rem;height:20rem;left:0;top:0;transform-origin:center center;-webkit-transform-origin:center center;position:absolute!important" overflow="visible"><path d="M0 0h914.4v685.8H0z" fill="#FFF" fill-rule="evenodd"/></svg>
+</div>
+</div>
+</div>
+</div>
+<div id="15" class="df" style="position:absolute;top:0rem;left:0rem;min-width:40.043rem;min-height:30.026rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(-9.031rem,-2.278rem,0);-webkit-transform:translate3d(-9.031rem,-2.278rem,0)">
+<div class='pin-container' id="pc-15" style="">
+<div class='cc'>
+<div class='render-container' style="width:40.043rem;height:30.026rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image14_358692.jpg" style="width:40.043rem;height:30.026rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="3" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.585rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.479rem,3.757rem,0);-webkit-transform:translate3d(17.479rem,3.757rem,0)">
+<div class='pin-container' id="pc-3" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.585rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image18_10168.png" style="width:1.585rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="77" class="df" style="position:absolute;top:0rem;left:0rem;min-width:0.848rem;min-height:0.84rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.455rem,4.372rem,0);-webkit-transform:translate3d(18.455rem,4.372rem,0)">
+<div class='pin-container' id="pc-77" style="">
+<div class='cc'>
+<div class='render-container' style="width:0.848rem;height:0.84rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image19_2177.png" style="width:0.848rem;height:0.84rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="28" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.585rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.469rem,1.081rem,0);-webkit-transform:translate3d(17.469rem,1.081rem,0)">
+<div class='pin-container' id="pc-28" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.585rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image18_10168.png" style="width:1.585rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="4" class="df" style="position:absolute;top:0rem;left:0rem;min-width:0.848rem;min-height:0.84rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.457rem,1.695rem,0);-webkit-transform:translate3d(18.457rem,1.695rem,0)">
+<div class='pin-container' id="pc-4" style="">
+<div class='cc'>
+<div class='render-container' style="width:0.848rem;height:0.84rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image19_2177.png" style="width:0.848rem;height:0.84rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="1026" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.519rem;min-height:1.51rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(16.258rem,2.535rem,0);-webkit-transform:translate3d(16.258rem,2.535rem,0)">
+<div class='pin-container' id="pc-1026" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.519rem;height:1.51rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image20_8715.png" style="width:1.519rem;height:1.51rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="9" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.519rem;min-height:1.51rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.553rem,2.535rem,0);-webkit-transform:translate3d(17.553rem,2.535rem,0)">
+<div class='pin-container' id="pc-9" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.519rem;height:1.51rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image20_8715.png" style="width:1.519rem;height:1.51rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Group -->
+<div id="5" class="" style="position:absolute;top:0;left:0;width:1.836rem;height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate(18.756rem,2.465rem);-webkit-transform:translate(18.756rem,2.465rem)">
+<div class='pin-container' id="pc-5" style="">
+<div class='cc' style="transform-origin:center center;-webkit-transform-origin:center center;width:100%;height:100%">
+<div id="10" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.585rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0rem,0rem,0);-webkit-transform:translate3d(0rem,0rem,0)">
+<div class='pin-container' id="pc-10" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.585rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image18_10168.png" style="width:1.585rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="11" class="df" style="position:absolute;top:0rem;left:0rem;min-width:0.848rem;min-height:0.84rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(0.988rem,0.614rem,0);-webkit-transform:translate3d(0.988rem,0.614rem,0)">
+<div class='pin-container' id="pc-11" style="">
+<div class='cc'>
+<div class='render-container' style="width:0.848rem;height:0.84rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image19_2177.png" style="width:0.848rem;height:0.84rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="6" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.335rem;min-height:0.895rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.87rem,1.481rem,0);-webkit-transform:translate3d(18.87rem,1.481rem,0)">
+<div class='pin-container' id="pc-6" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.335rem;height:0.895rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image21_2725.png" style="width:1.335rem;height:0.895rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="14" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.335rem;min-height:0.895rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.87rem,4.078rem,0);-webkit-transform:translate3d(18.87rem,4.078rem,0)">
+<div class='pin-container' id="pc-14" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.335rem;height:0.895rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image21_2725.png" style="width:1.335rem;height:0.895rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="1027" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.584rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.481rem,3.758rem,0);-webkit-transform:translate3d(17.481rem,3.758rem,0)">
+<div class='pin-container' id="pc-1027" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.584rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image22_8238.png" style="width:1.584rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="16" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.584rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(18.756rem,2.47rem,0);-webkit-transform:translate3d(18.756rem,2.47rem,0)">
+<div class='pin-container' id="pc-16" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.584rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image22_8238.png" style="width:1.584rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="17" class="df" style="position:absolute;top:0rem;left:0rem;min-width:1.584rem;min-height:1.575rem;transform-origin:center center;-webkit-transform-origin:center center;transform:translate3d(17.464rem,1.081rem,0);-webkit-transform:translate3d(17.464rem,1.081rem,0)">
+<div class='pin-container' id="pc-17" style="">
+<div class='cc'>
+<div class='render-container' style="width:1.584rem;height:1.575rem;left:0rem;top:0rem">
+<div class='image-container' style='width:100%;height:100%;overflow:hidden'>
+<img src="./images/image22_8238.png" style="width:1.584rem;height:1.575rem;position:relative;left:0rem;top:0rem;display:block">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<svg>
+  <defs>
+  </defs>
+</svg>
+                </script>
+            </section>
+            
+            <!-- endtobuild -->
+
+            
+        </div>
+    </div>
+    <audio id='bgm' autoPlay loop></audio>
+    <div id='toast' style='display:none'><span class='message'></span></div>
+    </div>
+  
+    <div id='arrow' class='hide'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAkCAMAAADip6m2AAAAolBMVEUAAAAAAAAAAAAAAAAAAAABAQEAAAAAAAAHBwcAAAD////9/f37+/vt7e25ubn39/cKCgrz8/Pe3t7c3Nz+/v729vbW1tZra2tKSkoAAABpaWlgYGD9/f38/Pz5+fn5+fn39/fz8/Px8fHu7u7q6urm5ubj4+Pd3d3y8vLX19fJycnAwMC4uLisrKyhoaGVlZWGhoajo6MpKSkxMTGAgID///9oDYyzAAAANXRSTlMAAwcLFR0SGRAO+efJbSOcIqBDQvLNbTEpGxEQ9e3h29XDvLOsnJOJiIFpYVlNRkE7MiwfDLl52bwAAAGFSURBVEjH3ZXZboMwFERbHAMhC6EFQtrs+777/3+t98bGjmwqy32plHmLPYfMiYTy9nJ5F/kb693j+O4h7Y567SZjzbYHuDv72WCQxgfSjixpReyRqEWAdmK/YyaTfAHtpivjIo6TUReTZYxxcZzupju/XufP4g660aYD2USmuF13sKeP7Ae6uF13fKZBDRLQ81gTt+rOCmD9MPSBLmaauEV3hWidQOqIr57FLbrpDllCPAghSO9SU7xad3QCNiRQgwAeAn0a6eLVutOC4mRk+SCcToupIW7qsmWnByw25B3Svc6SaeKGbn9LA8UqGsW3fVMc2VJ3eJS6apcUPw5LcVmAq1J30qWBL1mN9gPanZTiUBE3pe5C6cpo4gtRjXkJjtf8cbnSlTHEcz5yTTwBh00UOVToVogfGvibhQq+pCyr0q0Wz1h6kTDsyZObPvn36bckh6qA8YE1eIUEa6GxyyeKEzhC1MLy6byL3yNP4BNn7TSWVRffHYHaI7qq7PB3qMr/mh8s20b2bOZlXQAAAABJRU5ErkJggg==" width="30"></div>
+
+    <script>
+
+    switch (true){
+        case doc_info.logo === null:
+        case parseInt(doc_info.logo) == 0:
+        var logo = document.getElementById("loading");
+        logo.className = logo.className + " default-logo"
+        break;
+
+        case doc_info.logo.length > 2:
+        document.getElementById("logo").src = doc_info.logo;
+        break;
+
+    }
+    var audioSprites = {}
+    var INFO = {}
+    var fonts = ["字心坊萌新体"]
+
+    var pageConfig = {"mode":"ppt","transition":{"clickAdvance":true,"duration":0.7,"effect":"fade","overrideName":"p:transition"}};
+    var commonDir = function(i){ return commonCDN +  i }
+
+    </script>
+
+    
+ 
+    <script src="./common/js/jweixin-1.2.0.js"></script>
+    <script src="./common/js/loader_9eb882.js"></script>
+
+    <script>
+  
+    var C = function(src){
+        var args = [CDN];
+        if (!/^\//.test(src) && CDN.length > 1){
+                args.push(UID);
+        }
+        args.push(src.replace(/^\.?\/?/, ""));
+        return args.join("/");
+    }
+    var V = function(src){
+        var v = new Date().getTime();
+        return C(src) + "?v=" + v;
+    }
+    var pluginScripts = {
+        tt : {
+            plugin : ["/common/js/tt_2.js?v=" + new Date().getTime()],
+            page : [backend + "/modify_show.js?callback=tt_init&uid=" + UID + (doc_info.scid ? ("&scid=" + doc_info.scid) : "")],
+            css : [ commonCDN + "/common/css/tt_2.css?v=" + new Date().getTime() ]
+        },
+        tt_client : {
+            plugin: ["/common/js/tt_client_2.js?v=" + new Date().getTime()],
+            page : [backend + "/show.js?callback=tt_init&uid=" + UID],
+            css : [ commonCDN + "/common/css/tt_2.css?v=" + new Date().getTime() ]
+        },
+        "" : {
+            plugin : [],
+            page : [],
+            css : []
+        }
+    }
+
+    </script>
+
+   
+
+    <script>
+
+    var CACHE_PAGE = [UID, "last_page", "v1", window.doc_info.doc_version || "0"].join("_");
+    window.LocalDB = {
+        set: function(key, value, attributes){
+            document.cookie = [
+					key, '=', value,
+					attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+					attributes.path ? '; path=' + attributes.path : '',
+					attributes.domain ? '; domain=' + attributes.domain : '',
+					attributes.secure ? '; secure' : ''
+			].join('')
+        },
+        get: function(k){
+            return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(k).replace(/[\-\.\+\*]/g,     "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+        }
+    }
+    window.waitAudioContext = function(callback) {
+        var completed = false;
+        var try_hack = function() {
+            if (window.wx && Pui.browser.wechat) {
+                wx.checkJsApi({
+                    complete: function(res) {
+                        if (!completed) {
+                            completed = true;
+                            callback && callback();
+                        }
+                    }
+                })
+            } else {
+                completed = true;
+                callback && callback();
+            }
+            setTimeout(function() {
+                if (!completed) {
+                    try_hack();
+                }
+            }, 300)
+        }
+        try_hack();
+    }
+    window.loadAssets || (window.loadAssets = {
+        debug: /debug/.test(window.location.href),
+        css : [V("css/page.css")].concat(pluginScripts[window.pluginMode || ""].css),
+        js : {
+            lib:  ["/common/js/jquery_c6510f.js","/common/js/lib_dc6343.js"].map(commonDir),
+            plugin : ["/common/js/plugin_77987b.js"].concat(pluginScripts[window.pluginMode || ""].plugin).map(commonDir),
+            page: [V("js/page.js")].concat(pluginScripts[window.pluginMode || ""].page)
+        },
+        audio: audioSprites,
+        html: window.templatePartials.map(function(i){ return V(i) + "#slides" }),
+        font: fonts,
+        production: true,
+    })
+    </script>
+    <script src="./common/includes/page.js?pid=921588?&v=1573457716185"></script>
+
+      
+</body>
+</html>
