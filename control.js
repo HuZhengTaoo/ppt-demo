@@ -28,15 +28,7 @@
     var socketDescribe = function(){
       socket.on('receive',function(data){
         if(data.type==='teacher'){
-          if(data.isSamePage){
-            window.frames[0].frame.forward2()
-          }else{
-            window.frames[0].frame.restore(data.page)
-          }
-        }
-        if(data.isSamePage){
-          console.log('samepages')
-          window.frames[0].frame.forward2()
+            window.frames[0].frame.restore(data.page)  
         }
       })
     }
@@ -46,13 +38,6 @@
         $totalPage.text(window.frames[0].frame.getTotalSlides())
         $currentPage.text(window.frames[0].frame.getIndex())
         window.frames[0].frame.disableTouch()
-
-        // window.frames[0].frame.trackAction(function(event, action, index, id){
-        //   socket.emit('change',{
-        //     page:window.frames[0].frame.snapshot(),
-        //     type:type
-        //   })
-        // })
       }
     }
     var initFrame = function(){
@@ -72,17 +57,15 @@
 
     }
     var initControl = function(){
-      var _defaultEmit = function(isSamePage){
-        page = window.frames[0].frame.snapshot()
+      var _defaultEmit = function(){
         socket.emit('change',{
           page:window.frames[0].frame.snapshot(),
-          type:type,
-          isSamePage:isSamePage||false
+          type:type
         })
       } 
       // 上一页
       $('#prevSlide').on('click',function(){
-        window.frames[0].frame.prevSlide()
+          window.frames[0].frame.prevSlide()
           _defaultEmit()
         })
       // 下一页
@@ -95,19 +78,24 @@
         })
       $('#resume').on('click',function(){
           window.frames[0].frame.resume()
+          socket.emit('change',{
+            page:window.frames[0].frame.snapshot(),
+            type:type
+          })
         })
       // 下一步
 
       $('#forward2').on('click',function(){
-         console.log(window.frames[0].frame.snapshot(),'new')
-         window.frames[0].frame.pause()
-         if(window.frames[0].frame.snapshot() !== page){
-           window.frames[0].frame.forward2()
-            _defaultEmit()
-         }else{
-            _defaultEmit(true)
-         }
+        // window.frames[0].frame.trackAction(function(event, action, index, id){
+        //   console.log(event, action, index, id)
+        //   //broadcast是通信接口，需要自己实现
+        // })
+       window.frames[0].frame.forward2()
+        socket.emit('change',{
+          page:window.frames[0].frame.snapshot(),
+          type:type
         })
+      })
       // 上一步
 
       $('#backward2').on('click',function(){
